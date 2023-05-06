@@ -38,7 +38,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetUser(Guid id)
         {
-            var user = _mapper.Map<UserDto>(_userRepository.GetUser(id));
+            var user = _mapper.Map<User>(_userRepository.GetUser(id));
 
             if (!ModelState.IsValid)
             {
