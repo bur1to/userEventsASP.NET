@@ -3,6 +3,7 @@ using userEventsAndBlogs.Models;
 using userEventsAndBlogs.Interfaces;
 using userEventsAndBlogs.Dto;
 using AutoMapper;
+using userEventsAndBlogs.Pagination;
 
 namespace userEventsAndBlogs.Controllers
 {
@@ -20,9 +21,9 @@ namespace userEventsAndBlogs.Controllers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(Tuple<List<User>, int>))]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers([FromQuery] PaginationParams param)
         {
-            var users = _mapper.Map<Tuple<List<User>, int>>(_userRepository.GetUsers());
+            var users = _mapper.Map<Tuple<List<User>, int>>(_userRepository.GetUsers(param));
 
             if (!ModelState.IsValid)
             {

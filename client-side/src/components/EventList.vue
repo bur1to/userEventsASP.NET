@@ -4,7 +4,7 @@
         <div class="select">
             <strong>Sort by:</strong>
             <my-select v-model="sort" :options="selectedOptions" @click="sortedEvents" />
-            <div><strong class="count">Number of events: </strong> {{ events.length }}</div>
+            <div><strong class="count">Number of events: </strong> {{ this.count }}</div>
         </div>
         <table class="table">
             <thead>
@@ -43,7 +43,8 @@ export default {
             events: [],
             page: 1,
             limit: 5,
-            totalPages: 0
+            totalPages: 0,
+            count: 0
         }
     },
     methods: {
@@ -55,6 +56,7 @@ export default {
             axios.get(`https://localhost:7219/Event/${localStorage.getItem('id')}/userEvents`, { params })
               .then((res) => {
                 this.events = res.data.item1;
+                this.count = res.data.item2;
                 this.totalPages = Math.ceil(res.data.item2 / this.limit);
               })
               .catch((err) => console.log(err));
