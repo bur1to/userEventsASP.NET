@@ -2,7 +2,7 @@
     <div class="blogForm">
         <div class="createForm">
             <form @submit.prevent>
-                <h3 class="h4">Create blog</h3>
+                <h3 class="h4">Edit blog</h3>
                 <label>
                     Title:
                 </label>
@@ -14,11 +14,7 @@
                 <label>
                     Content of your blog:
                 </label>
-                <textarea class="textarea" v-model="blog.content" placeholder="Blog content"></textarea><br />
-                <label>
-                    Post date:
-                </label>
-                <input class="input" v-model="blog.postDate" type="date">
+                <textarea class="textarea" v-model="blog.content" placeholder="Blog content"></textarea>
                 <div class="btn_block3">
                     <button class="btn5" @click="updateBlog">Edit</button>
                 </div>
@@ -51,8 +47,9 @@ export default {
             }
         },
         getBlog() {
-            const { data } = axios.get(`https://localhost:7219/Blog/${localStorage.getItem('blogId')}`);
-            this.blog = data;
+            axios.get(`https://localhost:7219/Blog/${localStorage.getItem('blogId')}`)
+              .then((res) => this.blog = res.data)
+              .catch((err) => console.log(err));
         }
     },
     mounted() {

@@ -33,30 +33,37 @@
   </template>
     
   <script>
+  import router from '@/router';
   import axios from 'axios'
   export default {
     data() {
       return {
-        user: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phoneNumber: '',
-          password: '',
-          confirmPassword: ''
-        }
+        user: []
       }
     },
     methods: {
       updateUser() {
         try {
           axios.put(`https://localhost:7219/User/${localStorage.getItem('id')}`, this.user)
-            .then((res) => console.log(res.data))
+            .then((res) =>
+            {
+              console.log(res);
+              router.push('/profile');
+            })
             .catch((err) => console.log(err));
+          this.$emit('editUser', this.user);
         } catch (err) {
           console.log(err);
         }
+      },
+      getUser() {
+        axios.get(`https://localhost:7219/User/${localStorage.getItem('id')}`)
+          .then((res) => this.user = res.data)
+          .catch((err) => console.log(err));
       }
+    },
+    mounted() {
+      this.getUser();
     }
   }
   </script>

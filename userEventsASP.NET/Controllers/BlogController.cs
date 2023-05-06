@@ -70,7 +70,10 @@ namespace userEventsAndBlogs.Controllers
             if (blogCreate == null)
             {
                 return BadRequest(ModelState);
+            
             }
+
+            blogCreate.PostDate = DateTime.Now;
 
             var blogMap = _mapper.Map<Blog>(blogCreate);
 
