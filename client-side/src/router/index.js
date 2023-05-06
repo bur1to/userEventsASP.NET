@@ -9,12 +9,21 @@ import CreateEventPage from '@/pages/CreateEventPage';
 import UpdateUserPage from '@/pages/UpdateUserPage';
 import EditBlogPage from '@/pages/EditBlogPage';
 import UserPage from '@/pages/UserPage';
-
+import EventPage from '@/pages/EventPage';
+import EventListPage from '@/pages/EventListPage';
 
 const routes = [
   {
     path: '/',
     component: MainPage
+  },
+  {
+    path: '/events',
+    component: EventListPage
+  },
+  {
+    path: '/event',
+    component: EventPage
   },
   {
     path: '/register',

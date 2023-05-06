@@ -86,9 +86,11 @@
       getUsers(params) {
         try {
           axios.get('https://localhost:7219/User', { params })
-            .then((res) => this.users = res.data)
+            .then((res) => {
+              this.users = res.data.item1;
+              this.totalPages = Math.ceil(res.data.item2 / this.limit);
+            })
             .catch((err) => console.log(err));
-          // this.totalPages = Math.ceil(data.count / this.limit);
         } catch (err) {
           console.log(err);
         }

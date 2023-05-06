@@ -5,7 +5,8 @@
                 <button class="btn" @click="logOut">Log out</button>
             </div>
             <ul class="ul">
-                <li><router-link to="/" class="routerLink">Home</router-link></li>
+                <li><router-link to="/" class="routerLink">Blogs</router-link></li>
+                <router-link to="/events" class="routerLink">Events</router-link>
                 <li><router-link to="/create_blog" class="routerLink">Add blog</router-link></li>
                 <li><router-link to="/create_event" class="routerLink">Add event</router-link></li>
             </ul>
@@ -16,7 +17,10 @@
     <div class="btn_block2" v-if="isLogged === false">
         <router-link to="/login"><button class="btn9">Log in</button></router-link>
         <div class="home">
-            <router-link to="/" class="routerLink home">Home</router-link>
+            <ul class="ul">
+                <li><router-link to="/" class="routerLink home">Blogs</router-link></li>
+                <li><router-link to="/events" class="routerLink home2">Events</router-link></li>
+            </ul>
         </div>
     </div>
 </template>
@@ -79,11 +83,13 @@ export default {
     padding-top: 0px;
     text-align: center;
 }
+
 .btn_block1 {
     display: flex;
     align-self: center;
     margin-right: 10px;
 }
+
 .btn_block2 {
     display: flex;
     justify-content: flex-start;
@@ -91,6 +97,7 @@ export default {
     padding-top: 10px;
     font-size: 20px;
 }
+
 .btn,
 .btn9 {
     display: flex;
@@ -101,23 +108,27 @@ export default {
     border-radius: 15px;
     padding: 5px 15px 5px 15px;
 }
+
 .btn:hover,
 .btn9:hover {
     background: white;
     color: black;
 }
+
 .ul {
     display: flex;
     margin-left: 45px;
     gap: 8;
     list-style-type: none;
 }
+
 .routerLink {
     display: flex;
     padding-left: 10px;
     color: gray;
     font-size: 20px;
 }
+
 .profile {
     display: flex;
     margin-top: 17px;
@@ -125,18 +136,26 @@ export default {
     font-size: 20px;
     color: gray;
 }
+
 .home {
-    margin-top: 5px;
-    padding-left: 260px;
+    padding-left: 210px;
+    margin-top: -9px;
 }
+
+.home2 {
+    margin-top: -9px;
+}
+
 .routerLink:visited,
 .profile:visited {
     color: gray;
 }
+
 .routerLink:hover,
 .profile:hover {
     color: white;
 }
+
 .routerLink.active-link,
 .profile.active-link {
     color: white;
