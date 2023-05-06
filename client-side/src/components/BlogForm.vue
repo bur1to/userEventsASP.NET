@@ -14,11 +14,7 @@
                 <label>
                     Content of your blog:
                 </label>
-                <textarea class="textarea" v-model="blog.content" placeholder="Blog content"></textarea><br />
-                <label>
-                    Post date:
-                </label>
-                <input class="input" v-model="blog.postDate" type="date">
+                <textarea class="textarea" v-model="blog.content" placeholder="Blog content"></textarea>
                 <div class="btn_block3">
                     <button class="btn5" @click="createBlog">Post</button>
                 </div>
@@ -37,8 +33,7 @@ export default {
                 userId: localStorage.getItem('id'),
                 title: '',
                 themes: '',
-                content: '',
-                postDate: ''
+                content: ''
             }
         }
     },
@@ -51,8 +46,7 @@ export default {
                     userId: '',
                     title: '',
                     themes: '',
-                    content: '',
-                    date: ''
+                    content: ''
                 }
                 router.push('/');
             } catch (err) {
