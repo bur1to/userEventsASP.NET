@@ -1,6 +1,8 @@
 ﻿using userEventsAndBlogs.Models;
 using userEventsAndBlogs.Data;
 using userEventsAndBlogs.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using userEventsAndBlogs.Pagination;
 
 namespace userEventsAndBlogs.Repositories
 {
@@ -12,9 +14,12 @@ namespace userEventsAndBlogs.Repositories
             _context = context;
         }
 
-        public Tuple<List<User>, int> GetUsers()
+        public Tuple<List<User>, int> GetUsers([FromQuery] PaginationParams param)
         {
-            var users = _context.Users.ToList();
+            var users = _context.Users
+                .Skip(param.Page * 5)
+                .Take(5)
+                .ToList();
             var count = _context.Users.Count();
             var result = Tuple.Create(users, count);
 
