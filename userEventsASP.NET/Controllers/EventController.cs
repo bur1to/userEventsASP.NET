@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using userEventsAndBlogs.Models;
-using userEventsAndBlogs.Dto;
-using userEventsAndBlogs.Interfaces;
-using System.Transactions;
-using userEventsAndBlogs.Pagination;
+using userEventsASP.NET.Models;
+using userEventsASP.NET.Dto;
+using userEventsASP.NET.Interfaces;
+using userEventsASP.NET.Pagination;
 
-namespace userEventsAndBlogs.Controllers
+namespace userEventsASP.NET.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -24,7 +23,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(200, Type = typeof(Tuple<List<Event>, int>))]
         public IActionResult GetEvents([FromQuery] PaginationParams param)
         {
-            var events = _mapper.Map<Tuple<List<Event>, int>>(_eventRepository.GetEvents(param));
+            Tuple<List<Event>, int> events = _mapper.Map<Tuple<List<Event>, int>>(_eventRepository.GetEvents(param));
 
             if (!ModelState.IsValid)
             {
@@ -38,7 +37,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(200, Type = typeof(Tuple<List<Event>, int>))]
         public IActionResult GetEvents(Guid userId, [FromQuery] PaginationParams param)
         {
-            var userEvents = _mapper.Map<Tuple<List<Event>, int>>(_eventRepository.GetEvents(userId, param));
+            Tuple<List<Event>, int> userEvents = _mapper.Map<Tuple<List<Event>, int>>(_eventRepository.GetEvents(userId, param));
 
             if (!ModelState.IsValid)
             {
@@ -53,7 +52,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetEvent(Guid eventId)
         {
-            var evnt = _mapper.Map<EventDto>(_eventRepository.GetEvent(eventId));
+            EventDto evnt = _mapper.Map<EventDto>(_eventRepository.GetEvent(eventId));
 
             if (!ModelState.IsValid)
             {
@@ -78,7 +77,7 @@ namespace userEventsAndBlogs.Controllers
                 return BadRequest(ModelState);
             }
 
-            var eventMap = _mapper.Map<Event>(eventCreate);
+            Event eventMap = _mapper.Map<Event>(eventCreate);
 
             if (!_eventRepository.CreateEvent(eventMap))
             {
@@ -110,7 +109,7 @@ namespace userEventsAndBlogs.Controllers
                 return BadRequest(ModelState);
             }
 
-            var eventMap = _mapper.Map<Event>(updatedEvent);
+            Event eventMap = _mapper.Map<Event>(updatedEvent);
 
             if (!_eventRepository.UpdateEvent(eventMap))
             {
@@ -127,7 +126,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(404)]
         public IActionResult DeleteEvent(Guid id)
         {
-            var eventToDelete = _eventRepository.GetEvent(id);
+            Event eventToDelete = _eventRepository.GetEvent(id);
 
             if (!_eventRepository.DeleteEvent(eventToDelete))
             {

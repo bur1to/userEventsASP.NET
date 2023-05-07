@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using userEventsAndBlogs.Models;
+using userEventsASP.NET.Models;
 
-namespace userEventsAndBlogs.Data
+namespace userEventsASP.NET.Data
 {
     public class AppDbContext : DbContext
     {
@@ -14,5 +14,6 @@ namespace userEventsAndBlogs.Data
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<EventComment> EventComments { get; set; }
     }
 }

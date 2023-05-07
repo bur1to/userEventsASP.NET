@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using userEventsAndBlogs.Data;
-using userEventsAndBlogs.Repositories;
-using userEventsAndBlogs.Interfaces;
+using userEventsASP.NET.Data;
+using userEventsASP.NET.Repositories;
+using userEventsASP.NET.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -16,6 +16,7 @@ builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentEventRepository, CommentEventRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

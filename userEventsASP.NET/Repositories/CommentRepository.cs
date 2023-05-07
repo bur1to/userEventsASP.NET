@@ -1,8 +1,8 @@
-﻿using userEventsAndBlogs.Models;
-using userEventsAndBlogs.Data;
-using userEventsAndBlogs.Interfaces;
+﻿using userEventsASP.NET.Models;
+using userEventsASP.NET.Data;
+using userEventsASP.NET.Interfaces;
 
-namespace userEventsAndBlogs.Repositories
+namespace userEventsASP.NET.Repositories
 {
     public class CommentRepository : ICommentRepository
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using userEventsAndBlogs.Models;
-using userEventsAndBlogs.Dto;
-using userEventsAndBlogs.Interfaces;
-using userEventsAndBlogs.Pagination;
+using userEventsASP.NET.Models;
+using userEventsASP.NET.Dto;
+using userEventsASP.NET.Interfaces;
+using userEventsASP.NET.Pagination;
 
-namespace userEventsAndBlogs.Controllers
+namespace userEventsASP.NET.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -23,7 +23,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(200, Type = typeof(Tuple<List<Blog>, int>))]
         public IActionResult GetBlogs([FromQuery] PaginationParams param)
         {
-            var blogs = _mapper.Map<Tuple<List<Blog>, int>>(_blogRepository.GetBlogs(param));
+            Tuple<List<Blog>, int> blogs = _mapper.Map<Tuple<List<Blog>, int>>(_blogRepository.GetBlogs(param));
 
             if (!ModelState.IsValid)
             {
@@ -37,7 +37,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(200, Type = typeof(Tuple<List<Blog>, int>))]
         public IActionResult GetBlogs(Guid userId, [FromQuery] PaginationParams param)
         {
-            var userBlogs = _mapper.Map<Tuple<List<Blog>, int>>(_blogRepository.GetBlogs(userId, param));
+            Tuple<List<Blog>, int> userBlogs = _mapper.Map<Tuple<List<Blog>, int>>(_blogRepository.GetBlogs(userId, param));
 
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace userEventsAndBlogs.Controllers
                 return BadRequest(ModelState);
             }
 
-            var blog = _mapper.Map<BlogDto>(_blogRepository.GetBlog(id));
+            BlogDto blog = _mapper.Map<BlogDto>(_blogRepository.GetBlog(id));
 
             return Ok(blog);
         }
@@ -75,7 +75,7 @@ namespace userEventsAndBlogs.Controllers
 
             blogCreate.PostDate = DateTime.Now;
 
-            var blogMap = _mapper.Map<Blog>(blogCreate);
+            Blog blogMap = _mapper.Map<Blog>(blogCreate);
 
             if (!_blogRepository.CreateBlog(blogMap))
             {
@@ -107,7 +107,7 @@ namespace userEventsAndBlogs.Controllers
                 return BadRequest(ModelState);
             }
 
-            var blogMap = _mapper.Map<Blog>(updatedBlog);
+            Blog blogMap = _mapper.Map<Blog>(updatedBlog);
 
             if (!_blogRepository.UpdateBlog(blogMap))
             {

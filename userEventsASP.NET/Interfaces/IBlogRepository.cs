@@ -1,7 +1,7 @@
-﻿using userEventsAndBlogs.Models;
-using userEventsAndBlogs.Pagination;
+﻿using userEventsASP.NET.Models;
+using userEventsASP.NET.Pagination;
 
-namespace userEventsAndBlogs.Interfaces
+namespace userEventsASP.NET.Interfaces
 {
     public interface IBlogRepository
     {

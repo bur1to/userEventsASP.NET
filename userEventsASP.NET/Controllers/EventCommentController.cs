@@ -1,28 +1,28 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using userEventsASP.NET.Models;
 using userEventsASP.NET.Interfaces;
+using userEventsASP.NET.Dto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace userEventsASP.NET.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CommentController : Controller
+    public class EventCommentController : Controller
     {
-        private readonly ICommentRepository _commentRepository;
+        private readonly ICommentEventRepository _commentEventRepository;
         private readonly IMapper _mapper;
-        public CommentController(ICommentRepository commentRepository, IMapper mapper)
+        public EventCommentController(ICommentEventRepository commentEventRepository, IMapper mapper)
         {
-            _commentRepository = commentRepository;
+            _commentEventRepository = commentEventRepository;
             _mapper = mapper;
         }
 
-        [HttpGet("{blogId}")]
-        [ProducesResponseType(200, Type = typeof(List<Comment>))]
-        public IActionResult GetComments(Guid blogId)
+        [HttpGet("{eventId}")]
+        [ProducesResponseType(200, Type = typeof(List<EventComment>))]
+        public IActionResult GetComments(Guid eventId)
         {
-            
-            List<Comment> comments = _mapper.Map<List<Comment>>(_commentRepository.GetComments(blogId));
+            List<EventComment> comments = _mapper.Map<List<EventComment>>(_commentEventRepository.GetComments(eventId));
 
             if (!ModelState.IsValid)
             {
@@ -35,22 +35,21 @@ namespace userEventsASP.NET.Controllers
         [HttpPost]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public IActionResult CreateComment([FromBody] Comment commentCreate)
+        public IActionResult CreateComment([FromBody] EventComment commentCreated)
         {
-            if (commentCreate == null)
+            if (commentCreated == null)
             {
                 return BadRequest(ModelState);
             }
+
+            EventComment commentMap = _mapper.Map<EventComment>(commentCreated);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Comment commentMap = _mapper.Map<Comment>(commentCreate);
-
-            if (!_commentRepository.CreateComment(commentMap))
+            if (!_commentEventRepository.CreateComment(commentMap))
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
@@ -63,7 +62,7 @@ namespace userEventsASP.NET.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateBlog(Guid id, [FromBody] Comment updatedComment)
+        public IActionResult UpdateComment(Guid id, [FromBody] EventComment updatedComment)
         {
             if (updatedComment == null)
             {
@@ -80,11 +79,11 @@ namespace userEventsASP.NET.Controllers
                 return BadRequest(ModelState);
             }
 
-            Comment commentMap = _mapper.Map<Comment>(updatedComment);
+            EventComment commentToUpdate = _mapper.Map<EventComment>(updatedComment);
 
-            if (!_commentRepository.UpdateComment(commentMap))
+            if (!_commentEventRepository.UpdateComment(commentToUpdate))
             {
-                ModelState.AddModelError("", "Something went wrongwhile updating");
+                ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
             }
 
@@ -94,17 +93,16 @@ namespace userEventsASP.NET.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public IActionResult DeleteBlog(Guid id)
+        public IActionResult DeleteComment(Guid id)
         {
-            Comment commentToDelete = _commentRepository.GetComment(id);
+            EventComment commentToDelete = _commentEventRepository.GetComment(id);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!_commentRepository.DeleteComment(commentToDelete))
+            if (!_commentEventRepository.DeleteComment(commentToDelete))
             {
                 ModelState.AddModelError("", "Something went wrong while deleting");
                 return StatusCode(500, ModelState);

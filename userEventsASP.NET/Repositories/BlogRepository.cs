@@ -1,10 +1,10 @@
-﻿using userEventsAndBlogs.Models;
-using userEventsAndBlogs.Data;
-using userEventsAndBlogs.Interfaces;
+﻿using userEventsASP.NET.Models;
+using userEventsASP.NET.Data;
+using userEventsASP.NET.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using userEventsAndBlogs.Pagination;
+using userEventsASP.NET.Pagination;
 
-namespace userEventsAndBlogs.Repositories
+namespace userEventsASP.NET.Repositories
 {
     public class BlogRepository : IBlogRepository
     {

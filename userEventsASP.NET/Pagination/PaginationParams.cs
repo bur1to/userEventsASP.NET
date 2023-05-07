@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace userEventsAndBlogs.Pagination
+namespace userEventsASP.NET.Pagination
 {
     public class PaginationParams
     {
