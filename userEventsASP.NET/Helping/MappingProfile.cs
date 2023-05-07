@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using userEventsAndBlogs.Dto;
-using userEventsAndBlogs.Models;
+using userEventsASP.NET.Dto;
+using userEventsASP.NET.Models;
 
-namespace userEventsAndBlogs.Helping
+namespace userEventsASP.NET.Helping
 {
     public class MappingProfile : Profile
     {

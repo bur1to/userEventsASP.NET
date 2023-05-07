@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using userEventsAndBlogs.Data;
-using userEventsAndBlogs.Models;
+using userEventsASP.NET.Data;
+using userEventsASP.NET.Models;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace userEventsAndBlogs.Controllers
+namespace userEventsASP.NET.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -25,7 +25,7 @@ namespace userEventsAndBlogs.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] UserLogin userLogin)
         {
-            var user = Authenticate(userLogin);
+            User user = Authenticate(userLogin);
 
             if (user == null)
             {
@@ -39,14 +39,14 @@ namespace userEventsAndBlogs.Controllers
 
         private string GenerateToken(User user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[]
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            Claim[] claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,user.FirstName),
                 new Claim(ClaimTypes.Email,user.Email)
             };
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+            SecurityToken token = new JwtSecurityToken(_config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
                 expires: DateTime.Now.AddMinutes(15),

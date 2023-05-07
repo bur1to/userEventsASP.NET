@@ -57,11 +57,6 @@ export default {
             this.dialogVisible = false;
         }
     }, 
-    watch: {
-        comments(newValue) {
-            this.comments = newValue;
-        }
-    },
     mounted() {
         this.getBlog();
     }

@@ -1,4 +1,4 @@
-﻿namespace userEventsAndBlogs.Dto
+﻿namespace userEventsASP.NET.Dto
 {
     public class UserDto
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace userEventsAndBlogs.Models
+namespace userEventsASP.NET.Models
 {
     public class UserLogin
     {

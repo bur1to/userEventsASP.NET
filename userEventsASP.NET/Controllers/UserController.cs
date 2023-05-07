@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using userEventsAndBlogs.Models;
-using userEventsAndBlogs.Interfaces;
-using userEventsAndBlogs.Dto;
+using userEventsASP.NET.Models;
+using userEventsASP.NET.Interfaces;
 using AutoMapper;
-using userEventsAndBlogs.Pagination;
+using userEventsASP.NET.Pagination;
 
-namespace userEventsAndBlogs.Controllers
+namespace userEventsASP.NET.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -23,7 +22,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(200, Type = typeof(Tuple<List<User>, int>))]
         public IActionResult GetUsers([FromQuery] PaginationParams param)
         {
-            var users = _mapper.Map<Tuple<List<User>, int>>(_userRepository.GetUsers(param));
+            Tuple<List<User>, int> users = _mapper.Map<Tuple<List<User>, int>>(_userRepository.GetUsers(param));
 
             if (!ModelState.IsValid)
             {
@@ -38,7 +37,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetUser(Guid id)
         {
-            var user = _mapper.Map<User>(_userRepository.GetUser(id));
+            User user = _mapper.Map<User>(_userRepository.GetUser(id));
 
             if (!ModelState.IsValid)
             {
@@ -69,7 +68,7 @@ namespace userEventsAndBlogs.Controllers
                 return BadRequest("User with this email exist. Please log in");
             }
 
-            var userMap = _mapper.Map<User>(userCreate);
+            User userMap = _mapper.Map<User>(userCreate);
 
             if (!_userRepository.CreateUser(userMap))
             {
@@ -95,7 +94,7 @@ namespace userEventsAndBlogs.Controllers
                 return BadRequest(ModelState);
             }
 
-            var userMap = _mapper.Map<User>(updatedUser);
+            User userMap = _mapper.Map<User>(updatedUser);
 
             if (!_userRepository.UpdateUser(userMap))
             {
@@ -111,7 +110,7 @@ namespace userEventsAndBlogs.Controllers
         [ProducesResponseType(400)]
         public IActionResult DeleteUser(Guid id)
         {
-            var userToDelete = _userRepository.GetUser(id);
+            User userToDelete = _userRepository.GetUser(id);
 
             if (!_userRepository.DeleteUser(userToDelete))
             {

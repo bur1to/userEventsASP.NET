@@ -1,6 +1,6 @@
-﻿using userEventsAndBlogs.Models;
+﻿using userEventsASP.NET.Models;
 
-namespace userEventsAndBlogs.Interfaces
+namespace userEventsASP.NET.Interfaces
 {
     public interface ICommentRepository
     {
