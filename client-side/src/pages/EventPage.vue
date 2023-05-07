@@ -10,16 +10,32 @@
         </div>
         <div class="eventOrganizator">{{ `${user.firstName} ${user.lastName}` }}</div>
     </div>
+    <div class="comment">
+        <button class="com" @click="showDialog">Add comment</button>
+    </div>
+    <my-dialog v-model:show="dialogVisible">
+        <CommentEventForm @create="createComment" />
+    </my-dialog>
+    <div class="comments">
+        <CommentEventList />
+    </div>
 </template>
 
 <script>
+import CommentEventForm from '@/components/CommentEventForm.vue';
+import CommentEventList from '@/components/CommentEventList.vue';
 import axios from 'axios';
 export default {
+    components: {
+        CommentEventForm,
+        CommentEventList
+    },
     data() {
         return {
             event: [],
             user: [],
-            comments: []
+            comments: [],
+            dialogVisible: false
         }
     },
     methods: {
@@ -32,6 +48,13 @@ export default {
                   .catch((err) => console.log(err))
               })
               .catch((err) => console.log(err));
+        },
+        showDialog() {
+            this.dialogVisible = true;
+        },
+        createComment(comment) {
+            this.comments.push(comment);
+            this.dialogVisible = false;
         }
     },
     mounted() {
